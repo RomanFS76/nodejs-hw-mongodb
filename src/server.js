@@ -4,6 +4,7 @@ import pino from 'pino-http';
 import { env } from './utils/env.js';
 
 import { getContacts,getContactsById } from './services/contacts.js';
+import routerContacts from './routers/contacts.js';
 
 
 
@@ -22,32 +23,8 @@ export const setupServer = () => {
     }),
   );
 
-  app.get('/contacts', async (req, res) => {
-    const data = await getContacts();
-    res.json({
-      status:200,
-      message: "Successfully found contacts!",
-      data,
-    })
-  });
+  app.get('/contacts', routerContacts);
 
-  app.get('/contacts/:id', async (req, res) => {
-    console.log(req.params)
-
-    const {id} = req.params
-    const data = await getContactsById(id);
-
-    if(!data){
-      return res.status(404).json({
-        message:`Contact not found`,
-      })
-    }
-    res.json({
-      status:200,
-      message: `Successfully found contact with id ${id}`,
-      data,
-    })
-  });
 
 
   app.use('*', (req, res, next) => {
