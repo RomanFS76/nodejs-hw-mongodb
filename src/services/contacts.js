@@ -13,9 +13,20 @@ export const deleteContacts = async (id) => {
   return contact;
 };
 
-export const updateContacts = async ({_id, payload, options={}}) => {
-    const data = await ContactsCollection.findOneAndUpdate({_id}, payload, {...options,new:true});
+export const updateContacts = async ({ _id, payload, options = {} }) => {
+  const rawResult = await ContactsCollection.findOneAndUpdate(
+    { _id },
+    payload,
+    {
+      ...options,
+      new: true,
+      includeResultMetadata: true,
+    },
+  );
+  if (!rawResult || !rawResult.value) return null;
 
-    return data;
-
+  return {
+    data: rawResult.value,
+    isNew: Boolean(rawResult.lastErrorObject.upserted),
   };
+};
