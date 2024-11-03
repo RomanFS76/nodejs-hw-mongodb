@@ -22,6 +22,9 @@ const contactsSchema = new Schema({
     required: true,
     default: 'personal',
   },
+},{
+  versionKey: false,
+  timestamps:true,
 });
 
 export const ContactsCollection = model('contacts', contactsSchema);
