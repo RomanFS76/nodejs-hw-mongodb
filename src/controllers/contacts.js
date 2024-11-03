@@ -78,7 +78,7 @@ export const updateContactsController = async (req, res) => {
   });
 
   if (!result) {
-    next(createHttpError(404, `Contact id=${_id} not found`));
+    throw createHttpError(404, `Contact id=${_id} not found`);
   }
 
   res.json({
