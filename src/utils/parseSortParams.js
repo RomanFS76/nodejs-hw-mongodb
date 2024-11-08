@@ -1,5 +1,3 @@
-import sortByList from '../db/models/Contacts.js';
-
 const sortOrderList = ['asc', 'desc '];
 
 export const parseSortParams = ({ sortBy, sortOrder }, sortByList) => {

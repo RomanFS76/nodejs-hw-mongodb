@@ -32,10 +32,9 @@ const contactsSchema = new Schema(
   },
 );
 
-export const sortByList = ['name', 'phoneNumber',"email"];
-
 contactsSchema.post('save', handleSaveError);
 contactsSchema.pre('findOneAndUpdate', setUpdateSettings);
 contactsSchema.post('findOneAndUpdate', handleSaveError);
 
 export const ContactsCollection = model('contacts', contactsSchema);
+export const sortByList = ['name', 'phoneNumber', 'email'];

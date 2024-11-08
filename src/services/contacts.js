@@ -5,10 +5,11 @@ export const getContacts = async ({ page = 1, perPage = 10 }) => {
   const skip = (page - 1) * perPage;
   const data = await ContactsCollection.find().skip(skip).limit(perPage);
   const totalItems = await ContactsCollection.countDocuments();
-  const paginationData = calculatePaginationData(page, perPage, totalItems);
+
+  const paginationData = calculatePaginationData({page, perPage, totalItems});
   return {
     data,
-    ...paginationData,
+    ...paginationData
   };
 };
 
