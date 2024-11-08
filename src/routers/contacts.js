@@ -8,9 +8,9 @@ import {
   updateContactsController,
 } from '../controllers/contacts.js';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
-import validateBody from '../utils/validateBody.js';
 import { addContactsSchema, updateContactsSchema } from '../validation/contacts.js';
 import { isValidId } from '../middlewares/isValidId.js';
+import validateBody from '../middlewares/validateBody.js';
 
 const router = Router();
 

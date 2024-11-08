@@ -10,8 +10,9 @@ import createHttpError from 'http-errors';
       return next(createHttpError(400, error.message));
     }
     next();
-  }
+  };
   return func;
 };
+
 export default validateBody;
 
