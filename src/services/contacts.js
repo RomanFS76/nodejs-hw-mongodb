@@ -10,7 +10,7 @@ export const getContacts = async ({ page = 1, perPage = 10, sortBy  = "_id",sort
   if(contactType){
     query.where("contactType").equals(contactType);
   }
-  if(isFavourite){
+  if (typeof isFavourite === 'boolean'){
     query.where("isFavourite").equals(isFavourite);
   }
 

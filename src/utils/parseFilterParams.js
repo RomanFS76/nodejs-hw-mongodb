@@ -10,10 +10,7 @@ const parseContactType = (contactType) => {
 };
 
 const parseIsFavourite = (favourite) => {
-  if (typeof favourite !== 'string') return;
-  if (favourite === 'false') return false;
-  if (favourite === 'true') return true;
-  console.log(favourite)
+  return favourite === 'true' ? true : favourite === 'false' ? false : undefined;
 };
 
 export const parseFilterParams = ({ contactType, isFavourite }) => {
