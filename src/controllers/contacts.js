@@ -7,21 +7,28 @@ import {
 } from '../services/contacts.js';
 import createHttpError from 'http-errors';
 import { parseSortParams } from '../utils/parseSortParams.js';
-import {sortByList} from "../db/models/Contacts.js"
-
+import { sortByList } from '../db/models/Contacts.js';
 
 import { parsePaginationParams } from '../utils/parsePaginationParams.js';
+import { parseFilterParams } from '../utils/parseFilterParams.js';
 
 export const getContactsController = async (req, res, next) => {
-  const {page,perPage} = parsePaginationParams(req.query);
-  console.log("Controller page:" ,page)
-  console.log("Controller perPage:", perPage)
-  // const {sortBy, sortOrder} = parseSortParams(req.query, sortByList);
-  const data = await getContacts({page,perPage});
+  const { page, perPage } = parsePaginationParams(req.query);
+  const { contactType, isFavourite } = parseFilterParams(req.query);
+
+  const { sortBy, sortOrder } = parseSortParams(req.query, sortByList);
+  const data = await getContacts({
+    page,
+    perPage,
+    sortBy,
+    sortOrder,
+    contactType,
+    isFavourite
+  });
   res.json({
     status: 200,
     message: 'Successfully found contacts!',
-    data
+    data,
   });
 };
 
@@ -40,10 +47,9 @@ export const getContactsByIdController = async (req, res, next) => {
 };
 
 export const addContactsController = async (req, res) => {
-
-
-
+  console.log(req.body)
   const data = await addContacts(req.body);
+
 
   res.status(201).json({
     status: 201,
@@ -96,6 +102,6 @@ export const updateContactsController = async (req, res) => {
   res.json({
     status: 200,
     message: `Successfully patched a contact!`,
-    data:result.data,
+    data: result.data,
   });
 };

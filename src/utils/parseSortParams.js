@@ -1,4 +1,4 @@
-const sortOrderList = ['asc', 'desc '];
+import { sortOrderList } from '../constants/contacts.js';
 
 export const parseSortParams = ({ sortBy, sortOrder }, sortByList) => {
   const parsedSortOrder = sortOrderList.includes(sortOrder)
