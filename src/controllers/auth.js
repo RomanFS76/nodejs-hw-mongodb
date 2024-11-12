@@ -1,11 +1,11 @@
 import { login, register } from '../services/auth.js';
 
 export const registerController = async (req, res) => {
-  const data = await register(req.body);
-
+  await register(req.body);
+  const { name } = req.body;
   res.status(201).json({
     status: 201,
-    message: 'Successfully registred user',
+    message: `Successfully registred ${name}`,
   });
 };
 
