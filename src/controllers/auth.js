@@ -1,13 +1,31 @@
-import createHttpError from 'http-errors';
-import  register  from '../services/auth.js';
+import { login, register } from '../services/auth.js';
 
+export const registerController = async (req, res) => {
+  const data = await register(req.body);
 
+  res.status(201).json({
+    status: 201,
+    message: 'Successfully registred user',
+  });
+};
 
-export const registerController = async (req,res) =>{
-    const data = await register(req.body);
+export const loginController = async (req, res) => {
+  const { _id, accessToken, refreshToken, refreshTokenValidUntil } =
+    await login(req.body);
 
-    res.status(201).json({
-        status:201,
-        message:"Successfully registred user"
-    })
-}
+  res.cookie('refreshToken', refreshToken, {
+    httpOnly: true,
+    expires: refreshTokenValidUntil,
+  });
+  res.cookie('sessionId', _id, {
+    httpOnly: true,
+    expires: refreshTokenValidUntil,
+  });
+  res.status(200).json({
+    status: 200,
+    message: `Successfully loged`,
+    data: {
+      accessToken,
+    },
+  });
+};
