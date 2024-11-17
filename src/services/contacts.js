@@ -1,7 +1,7 @@
 import { ContactsCollection } from '../db/models/Contacts.js';
 import { calculatePaginationData } from '../utils/calculatePaginationData.js';
 
-export const getContacts = async ({ page = 1, perPage = 10, sortBy  = "_id",sortOrder ="asc", contactType, isFavourite }) => {
+export const getContacts = async ({ page = 1, perPage = 10, sortBy  = "_id",sortOrder ="asc", contactType, isFavourite,userId }) => {
 
 
   const skip = (page - 1) * perPage;
@@ -12,6 +12,9 @@ export const getContacts = async ({ page = 1, perPage = 10, sortBy  = "_id",sort
   }
   if (typeof isFavourite === 'boolean'){
     query.where("isFavourite").equals(isFavourite);
+  }
+  if (userId){
+    query.where("userId").equals(userId);
   }
 
   const data = await query;
