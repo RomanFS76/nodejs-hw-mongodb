@@ -27,19 +27,19 @@ export const getContacts = async ({ page = 1, perPage = 10, sortBy  = "_id",sort
   };
 };
 
-export const getContactsById = (id) => ContactsCollection.findById(id);
+export const getContactsById = ({_id,userId}) => ContactsCollection.findOne({_id,userId});
 
 export const addContacts = async (payload) => {
   const contact = await ContactsCollection.create(payload);
   return contact;
 };
 
-export const deleteContacts = async (id) => {
-  const contact = await ContactsCollection.findOneAndDelete(id);
+export const deleteContacts = async ({_id,userId}) => {
+  const contact = await ContactsCollection.findOneAndDelete({_id,userId});
   return contact;
 };
 
-export const updateContacts = async ({ _id, payload, options = {} }) => {
+export const updateContacts = async ({ _id,userId, payload, options = {} }) => {
   const rawResult = await ContactsCollection.findOneAndUpdate(
     { _id },
     payload,
@@ -55,4 +55,23 @@ export const updateContacts = async ({ _id, payload, options = {} }) => {
     data: rawResult.value,
     isNew: Boolean(rawResult.lastErrorObject.upserted),
   };
+};
+
+
+export const upsertContactsController = async (req, res) => {
+  const { id: _id } = req.params;
+  const payload = req.body;
+  const result = await updateContacts({
+    _id,
+    payload,
+    options: { upsert: true },
+  });
+
+  const status = result.isNew ? 201 : 200;
+
+  res.status(status).json({
+    status,
+    message: `Successfully upserted`,
+    data: result.data,
+  });
 };
