@@ -41,7 +41,7 @@ export const deleteContacts = async ({_id,userId}) => {
 
 export const updateContacts = async ({ _id,userId, payload, options = {} }) => {
   const rawResult = await ContactsCollection.findOneAndUpdate(
-    { _id },
+    { _id,userId },
     payload,
     {
       ...options,
@@ -58,20 +58,4 @@ export const updateContacts = async ({ _id,userId, payload, options = {} }) => {
 };
 
 
-export const upsertContactsController = async (req, res) => {
-  const { id: _id } = req.params;
-  const payload = req.body;
-  const result = await updateContacts({
-    _id,
-    payload,
-    options: { upsert: true },
-  });
 
-  const status = result.isNew ? 201 : 200;
-
-  res.status(status).json({
-    status,
-    message: `Successfully upserted`,
-    data: result.data,
-  });
-};

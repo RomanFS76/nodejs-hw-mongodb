@@ -106,9 +106,11 @@ export const upsertContactsController = async (req, res) => {
 
 export const updateContactsController = async (req, res) => {
   const { id: _id } = req.params;
+  const{_id:userId} = req.user;
   const payload = req.body;
   const result = await updateContacts({
     _id,
+    userId,
     payload,
   });
 

@@ -15,11 +15,12 @@ const setupSession = (res, session) => {
 };
 
 export const registerController = async (req, res) => {
-  await register(req.body);
+  const data = await register(req.body);
   const { name } = req.body;
   res.status(201).json({
     status: 201,
     message: `Successfully registred ${name}`,
+    data
   });
 };
 

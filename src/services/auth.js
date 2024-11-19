@@ -98,3 +98,10 @@ export const findUser = (filter) => UserCollection.findOne(filter);
 //     "email": "R@gmail.com",
 //     "password": "112233"
 // }
+
+
+// {
+//   "name": "Vova",
+//   "email": "VovaR@gmail.com",
+//   "password": "123456789"
+// }

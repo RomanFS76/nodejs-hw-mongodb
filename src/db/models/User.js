@@ -23,6 +23,12 @@ const userSchema = new Schema({
     timestamps:true,
 });
 
+  userSchema.methods.toJSON = function () {
+  const obj = this.toObject();
+  delete obj.password;
+  return obj;
+};
+
 
 userSchema.post('save', handleSaveError);
 userSchema.pre('findOneAndUpdate', setUpdateSettings);
