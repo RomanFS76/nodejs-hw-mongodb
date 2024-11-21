@@ -82,7 +82,9 @@ export const refreshUserSession = async ({ sessionId, refreshToken }) => {
 
 export const logout = (sessionId) =>  SessionCollection.deleteOne({ _id: sessionId });
 
-
+export const requestResetToken = async (email)=>{
+  const user = await UserCollection.findOne({email});
+};
 
 
 export const findSession = (filter) => SessionCollection.findOne(filter);
