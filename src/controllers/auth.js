@@ -1,8 +1,13 @@
-import { login, register, refreshUserSession,logout} from '../services/auth.js';
+import {
+  login,
+  register,
+  refreshUserSession,
+  logout,
+  requestResetToken,
+} from '../services/auth.js';
 
 const setupSession = (res, session) => {
-
-  const {_id,refreshToken,refreshTokenValidUntil} = session;
+  const { _id, refreshToken, refreshTokenValidUntil } = session;
 
   res.cookie('refreshToken', refreshToken, {
     httpOnly: true,
@@ -20,7 +25,7 @@ export const registerController = async (req, res) => {
   res.status(201).json({
     status: 201,
     message: `Successfully registred ${name}`,
-    data
+    data,
   });
 };
 
@@ -52,14 +57,24 @@ export const refreshSessionController = async (req, res) => {
   });
 };
 
-
-export const logoutController = async (req,res)=>{
+export const logoutController = async (req, res) => {
   const sessionId = req.cookies.sessionId;
-  if(sessionId) {
-    await logout (sessionId);
- }
- res.clearCookie("sessionId");
- res.clearCookie("refreshToken");
+  if (sessionId) {
+    await logout(sessionId);
+  }
+  res.clearCookie('sessionId');
+  res.clearCookie('refreshToken');
 
- res.status(204).send();
-}
+  res.status(204).send();
+};
+
+export const requestResetEmailController = async (req, res) => {
+  const { email } = req.body;
+  await requestResetToken(email);
+
+  res.json({
+    message: 'Reset password email was successfully sent!',
+    status: 200,
+    data: {},
+  });
+};
