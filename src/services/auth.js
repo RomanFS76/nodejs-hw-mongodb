@@ -9,6 +9,9 @@ import {
   accessTokenLifeTime,
   refreshTokenLifeTime,
 } from '../constants/user.js';
+import { sendEmail } from '../utils/sendMail.js';
+import { env } from '../utils/env.js';
+import { SMTP } from '../constants/index.js';
 
 const createSession = () => {
   const accessToken = randomBytes(30).toString('base64');
@@ -80,15 +83,22 @@ export const refreshUserSession = async ({ sessionId, refreshToken }) => {
   });
 };
 
-export const logout = (sessionId) =>  SessionCollection.deleteOne({ _id: sessionId });
+export const logout = (sessionId) =>
+  SessionCollection.deleteOne({ _id: sessionId });
 
-export const requestResetToken = async (email)=>{
-  const user = await UserCollection.findOne({email});
+export const requestResetToken = async (email) => {
+  const user = await UserCollection.findOne({ email });
   if (!user) {
     throw createHttpError(404, 'User not found');
   }
-};
 
+  await sendEmail({
+    from: env(SMTP.SMTP_FROM),
+    to: 'jenziel.dierks@feesites.com',
+    subject: 'Reset your password',
+    html: `<p>Click <a https://http://localhost:3000/auth/reset-password?token=<jwt-token>>here</a> to reset your password!</p>`,
+  });
+};
 
 export const findSession = (filter) => SessionCollection.findOne(filter);
 
@@ -104,9 +114,19 @@ export const findUser = (filter) => UserCollection.findOne(filter);
 //     "password": "112233"
 // }
 
-
 // {
 //   "name": "Vova",
 //   "email": "VovaR@gmail.com",
 //   "password": "123456789"
 // }
+
+
+// jenziel.dierks@feesites.com
+
+// {
+//   "name": "88899",
+//   "email": "jenziel.dierks@feesites.com",
+//   "password": "123456789"
+// }
+
+
