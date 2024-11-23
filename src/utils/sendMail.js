@@ -15,5 +15,5 @@ const nodemailerConfig = {
 const transporter = nodemailer.createTransport(nodemailerConfig);
 
 export const sendEmail = async (options) => {
-  return await transporter.sendMail(options);
+  return await transporter.sendMail({...options, from:env(SMTP.SMTP_USER) });
 };
