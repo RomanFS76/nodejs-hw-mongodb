@@ -13,6 +13,8 @@ import { sendEmail } from '../utils/sendMail.js';
 import { env } from '../utils/env.js';
 import { SMTP } from '../constants/index.js';
 
+import jwt from 'jsonwebtoken';
+
 const createSession = () => {
   const accessToken = randomBytes(30).toString('base64');
   const refreshToken = randomBytes(30).toString('base64');
@@ -93,40 +95,22 @@ export const requestResetToken = async (email) => {
   }
 
   await sendEmail({
-    from: env(SMTP.SMTP_FROM),
-    to: 'jenziel.dierks@feesites.com',
+    to: email,
     subject: 'Reset your password',
     html: `<p>Click <a https://http://localhost:3000/auth/reset-password?token=<jwt-token>>here</a> to reset your password!</p>`,
   });
 };
 
-export const findSession = (filter) => SessionCollection.findOne(filter);
+export const findSession = (filter) => SessionCollection.findOne({ filter });
 
-export const findUser = (filter) => UserCollection.findOne(filter);
-
-// {
-//     "name": "Povalenko023132",
-//     "phoneNumber": "+38000043545000005"
-// }
-
-// {
-//     "email": "R@gmail.com",
-//     "password": "112233"
-// }
-
-// {
-//   "name": "Vova",
-//   "email": "VovaR@gmail.com",
-//   "password": "123456789"
-// }
-
-
-// jenziel.dierks@feesites.com
+export const findUser = (filter) => UserCollection.findOne({ filter });
 
 // {
 //   "name": "88899",
-//   "email": "jenziel.dierks@feesites.com",
+//   "email": "wijac12587@gitated.com",
 //   "password": "123456789"
 // }
 
-
+// ukr
+// mail
+// LYsyf4pd9rMcWOVi
