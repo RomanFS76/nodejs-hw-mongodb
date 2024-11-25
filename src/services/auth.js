@@ -11,7 +11,11 @@ import {
 } from '../constants/user.js';
 import { sendEmail } from '../utils/sendMail.js';
 import { env } from '../utils/env.js';
-import { SMTP } from '../constants/index.js';
+import { SMTP, TEMPLATE_DIR } from '../constants/index.js';
+import handlebars from 'handlebars';
+
+import * as path from 'node:path';
+import * as fs from 'node:fs/promises';
 
 import jwt from 'jsonwebtoken';
 
@@ -35,7 +39,12 @@ export const register = async (payload) => {
   const hashPassword = await bcrypt.hash(password, 10);
   console.log(hashPassword);
 
-  return UserCollection.create({ ...payload, password: hashPassword });
+  const newUser = await UserCollection.create({
+    ...payload,
+    password: hashPassword,
+  });
+
+  return newUser;
 };
 
 export const login = async ({ email, password }) => {
@@ -88,17 +97,72 @@ export const refreshUserSession = async ({ sessionId, refreshToken }) => {
 export const logout = (sessionId) =>
   SessionCollection.deleteOne({ _id: sessionId });
 
+// ---------------------------requestResetToken--------------------------------------------
+
+const emailTemplatePath = path.join(TEMPLATE_DIR, 'reset-password.html');
+const jwtSecret = env('JWT_SECRET');
+const appDomain = env('APP_DOMAIN');
+
 export const requestResetToken = async (email) => {
   const user = await UserCollection.findOne({ email });
+  console.log(user);
   if (!user) {
     throw createHttpError(404, 'User not found');
   }
 
-  await sendEmail({
-    to: email,
-    subject: 'Reset your password',
-    html: `<p>Click <a https://http://localhost:3000/auth/reset-password?token=<jwt-token>>here</a> to reset your password!</p>`,
+  const token = jwt.sign({ email }, jwtSecret, {
+    expiresIn: '5m',
   });
+
+  console.log(token);
+
+  const templateSource = await fs.readFile(emailTemplatePath, 'utf8');
+
+  const template = handlebars.compile(templateSource);
+
+  const html = template({
+    link: `${appDomain}/reset-password?token=${token}`,
+  });
+
+  try {
+    await sendEmail({
+      to: email,
+      subject: 'Reset password',
+      html,
+    });
+  } catch (error) {
+    throw createHttpError(
+      500,
+      'Failed to send the email, please try again later.',
+    );
+  }
+};
+
+export const resetPassword = async (payload) => {
+  let entries;
+
+  try {
+    entries = jwt.verify(payload.token, env('JWT_SECRET'));
+  } catch (err) {
+    if (err instanceof Error)
+      throw createHttpError(401, 'Token is expired or invalid.');
+    throw err;
+  }
+
+  const user = await UserCollection.findOne({
+    email: entries.email,
+  });
+
+  if (!user) {
+    throw createHttpError(404, 'User not found');
+  }
+
+  const encryptedPassword = await bcrypt.hash(payload.password, 10);
+
+  await UserCollection.updateOne({ password: encryptedPassword });
+
+  await SessionCollection.deleteOne({ userId: user._id });
+
 };
 
 export const findSession = (filter) => SessionCollection.findOne({ filter });
@@ -107,10 +171,16 @@ export const findUser = (filter) => UserCollection.findOne({ filter });
 
 // {
 //   "name": "88899",
-//   "email": "wijac12587@gitated.com",
+//   "email": "pevivon420@cashbn.com",
 //   "password": "123456789"
 // }
 
 // ukr
 // mail
 // LYsyf4pd9rMcWOVi
+
+// {
+
+//   "email": "pevivon420@cashbn.com",
+//   "password": "112233"
+// }
