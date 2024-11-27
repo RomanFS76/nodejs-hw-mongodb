@@ -110,7 +110,7 @@ export const requestResetToken = async (email) => {
     throw createHttpError(404, 'User not found');
   }
 
-  const token = jwt.sign({ email }, jwtSecret, {
+  const token = jwt.sign({ sub: user._id, email }, jwtSecret, {
     expiresIn: '5m',
   });
 
@@ -150,6 +150,7 @@ export const resetPassword = async (payload) => {
   }
 
   const user = await UserCollection.findOne({
+    _id: entries.sub,
     email: entries.email,
   });
 
@@ -159,10 +160,12 @@ export const resetPassword = async (payload) => {
 
   const encryptedPassword = await bcrypt.hash(payload.password, 10);
 
-  await UserCollection.updateOne({ password: encryptedPassword });
+  await UserCollection.updateOne(
+    { _id: user._id },
+    { password: encryptedPassword },
+  );
 
   await SessionCollection.deleteOne({ userId: user._id });
-
 };
 
 export const findSession = (filter) => SessionCollection.findOne({ filter });
