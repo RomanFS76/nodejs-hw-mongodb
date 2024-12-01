@@ -168,9 +168,9 @@ export const resetPassword = async (payload) => {
   await SessionCollection.deleteOne({ userId: user._id });
 };
 
-export const findSession = (filter) => SessionCollection.findOne({ filter });
+export const findSession = (filter) => SessionCollection.findOne( filter );
 
-export const findUser = (filter) => UserCollection.findOne({ filter });
+export const findUser = (filter) => UserCollection.findOne( filter );
 
 // {
 //   "name": "88899",
