@@ -27,7 +27,7 @@ export const setupServer = () => {
 
   app.use('/auth', authRouter);
   app.use('/contacts', routerContacts);
-  app.use('/uploads', express.static(UPLOAD_DIR));
+  app.use('/uploads', express.static("uploads"));
 
   app.use('*', notFoundHandler);
 
