@@ -13,7 +13,7 @@ import { parsePaginationParams } from '../utils/parsePaginationParams.js';
 import { parseFilterParams } from '../utils/parseFilterParams.js';
 import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
 
-import * as path from 'node:path';
+// import * as path from 'node:path';
 import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
 import { env } from '../utils/env.js';
 
@@ -112,8 +112,6 @@ export const updateContactsController = async (req, res) => {
   const { _id: userId } = req.user;
   const payload = req.body;
 
-  console.log(req.file);
-
   let photo = null;
 
   if (req.file) {
@@ -125,9 +123,8 @@ export const updateContactsController = async (req, res) => {
   }
 
   if (photo) {
-    payload.photo = photo;
-  }
- console.log(payload.photo);
+    payload.photo = photo;  }
+
   const result = await updateContacts({
     _id,
     userId,

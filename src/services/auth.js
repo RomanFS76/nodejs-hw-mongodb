@@ -11,7 +11,7 @@ import {
 } from '../constants/user.js';
 import { sendEmail } from '../utils/sendMail.js';
 import { env } from '../utils/env.js';
-import { SMTP, TEMPLATE_DIR } from '../constants/index.js';
+import { TEMPLATE_DIR } from '../constants/index.js';
 import handlebars from 'handlebars';
 
 import * as path from 'node:path';
@@ -105,7 +105,6 @@ const appDomain = env('APP_DOMAIN');
 
 export const requestResetToken = async (email) => {
   const user = await UserCollection.findOne({ email });
-  console.log(user);
   if (!user) {
     throw createHttpError(404, 'User not found');
   }
@@ -113,9 +112,6 @@ export const requestResetToken = async (email) => {
   const token = jwt.sign({ sub: user._id, email }, jwtSecret, {
     expiresIn: '5m',
   });
-
-  console.log(token);
-
   const templateSource = await fs.readFile(emailTemplatePath, 'utf8');
 
   const template = handlebars.compile(templateSource);
@@ -124,20 +120,19 @@ export const requestResetToken = async (email) => {
     link: `${appDomain}/reset-password?token=${token}`,
   });
 
-
-  await sendEmail({
-    to: email,
-    subject: 'Reset password',
-    html,
-  });
-  // try {
-
-  // } catch (error) {
-  //   throw createHttpError(
-  //     500,
-  //     'Failed to send the email, please try again later.',
-  //   );
-  // }
+  try {
+    await sendEmail({
+      to: email,
+      subject: 'Reset password',
+      html,
+    });
+  } catch (error) {
+    console.log(error);
+    throw createHttpError(
+      500,
+      'Failed to send the email, please try again later.',
+    );
+  }
 };
 
 export const resetPassword = async (payload) => {
@@ -170,9 +165,9 @@ export const resetPassword = async (payload) => {
   await SessionCollection.deleteOne({ userId: user._id });
 };
 
-export const findSession = (filter) => SessionCollection.findOne( filter );
+export const findSession = (filter) => SessionCollection.findOne(filter);
 
-export const findUser = (filter) => UserCollection.findOne( filter );
+export const findUser = (filter) => UserCollection.findOne(filter);
 
 // {
 //   "name": "88899",
