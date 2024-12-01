@@ -26,13 +26,13 @@ router.get('/', ctrlWrapper(getContactsController));
 
 router.get('/:id',isValidId, ctrlWrapper(getContactsByIdController));
 
-router.post('/', validateBody(addContactsSchema), ctrlWrapper(addContactsController));
+router.post('/',upload("photo"), validateBody(addContactsSchema), ctrlWrapper(addContactsController));
 
 router.delete('/:id',isValidId, ctrlWrapper(deleteContactsController));
 
-router.put('/:id',isValidId, validateBody(addContactsSchema),ctrlWrapper(upsertContactsController));
+router.put('/:id',upload("photo"),isValidId, validateBody(addContactsSchema),ctrlWrapper(upsertContactsController));
 
-router.patch('/:id',isValidId, validateBody(updateContactsSchema), ctrlWrapper(updateContactsController));
+router.patch('/:id',upload("photo"),isValidId, validateBody(updateContactsSchema), ctrlWrapper(updateContactsController));
 
 
 
