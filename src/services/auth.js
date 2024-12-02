@@ -112,6 +112,7 @@ export const requestResetToken = async (email) => {
   const token = jwt.sign({ sub: user._id, email }, jwtSecret, {
     expiresIn: '5m',
   });
+  
   const templateSource = await fs.readFile(emailTemplatePath, 'utf8');
 
   const template = handlebars.compile(templateSource);
