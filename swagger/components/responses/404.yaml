@@ -1,0 +1,18 @@
+# swagger/components/responses/401.yaml
+
+description: Contact id not found
+content:
+  application/json:
+    schema:
+      type: object
+      required:
+        - status
+        - message
+      properties:
+        status:
+          type: integer
+          example: 404
+        message:
+          type: string
+          example: "Contact id=674cbec22a8bf128259c64b5 not found"
+

@@ -12,32 +12,32 @@ properties:
   _id:
     description: "Contact's unique identifier"
     type: string
-    example: 674cbeb42a8bf128259c64b1
+    example: "674cbeb42a8bf128259c64b1"
   userId:
     description: "User's unique identifier"
     type: string
-    example: 674c664a4e1c67a42ed5c71c
+    example: "674c664a4e1c67a42ed5c71c"
   name:
     description: "Contact's name"
     type: string
-    example: 'Roman'
+    example: "Roman"
   phoneNumber:
     description: "Contact's phone number"
     type: string
-    example: '+380563452635'
+    example: "+380563452635"
   email:
     description: "Contact's email address"
     type: string
-    example: 'yeicob.trinidad@feesites.com'
+    example: "yeicob.trinidad@feesites.com"
   isFavourite:
     description: "Indicates whether the contact is a favourite (true or false)"
     type: boolean
     example: false
   contactType:
-    description: 'Type of the contact.Should be only: work, home or personal'
-    enum: ['work', 'home', "personal"]
+    description: "Type of the contact.Should be only: work, home or personal"
+    enum: ['work', 'home', 'personal']
     type: string
-    example: 'work'
+    example: "work"
   photo:
     description: "URL to the contact's photo"
     type: string

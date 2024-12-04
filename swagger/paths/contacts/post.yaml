@@ -2,7 +2,7 @@
 
 tags:
   - Contacts
-summary: Create contacts
+summary: Create contact
 operationId: createContacts
 description: 'Create a Contacts with payload'
 security:

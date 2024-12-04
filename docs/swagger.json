@@ -33,8 +33,8 @@
         "tags": [
           "Contacts"
         ],
-        "summary": "Get list of contacts",
-        "operationId": "getContacts",
+        "summary": "Get list of contact",
+        "operationId": "getContact",
         "description": "Get list of contacts with this endpoint",
         "security": [
           {
@@ -194,7 +194,6 @@
               "schema": {
                 "type": "object",
                 "required": [
-                  "userId",
                   "name",
                   "phoneNumber"
                 ],
@@ -263,7 +262,67 @@
                     },
                     "message": {
                       "type": "string",
-                      "example": "Successfully created a student!"
+                      "example": "Successfully created a contact!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/contacts"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/contacts/{id}": {
+      "get": {
+        "tags": [
+          "Contacts"
+        ],
+        "summary": "Get contact by id",
+        "operationId": "getContactId",
+        "description": "Get contact by id",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "65ca67e7ae7f10c88b598384"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get contact by id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully found contact with id 65ca67e7ae7f10c88b598384!"
                     },
                     "data": {
                       "type": "object",
