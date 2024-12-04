@@ -1,23 +1,24 @@
 openapi: 3.1.0
 info:
   version: 1.0.0
-  title: <назва вашого додатку>
+  title: Contacts app
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   description:
-    <опис вашого додатку>
+    This is a documentation of contacts app
 tags:
   - name: Contacts
-    description: Operations about contacts.
+    description: Operations about contacts
   - name: Auth
-  description: Auth operations.
+    description: Auth operations
+servers:
   - url: http://localhost:3000
-  - url: #посилання на задеплоєний сайт
+  - url: https://example.com/api/v1
 paths:
   /contacts:
     get:
-      $ref: ..
+      $ref: ../swagger/paths/contacts/get.yaml
 components:
   securitySchemes:
     bearerAuth:
