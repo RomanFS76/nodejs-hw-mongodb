@@ -1,0 +1,37 @@
+type: object
+required:
+  - _id
+  - userId
+  - accessToken
+  - refreshToken
+  - accessTokenValidUntil
+  - refreshTokenValidUntil
+properties:
+  _id:
+    description: "Session's unique identifier"
+    type: string
+    example: 674c7d12e11872cafb6c706a
+  userId:
+    description: "User's unique identifier"
+    type: string
+    example: 674c664a4e1c67a42ed5c71c
+  accessToken:
+    description: 'Access token for the session'
+    type: string
+    format: date-time
+    example: '2024-12-01T21:31:46.483+00:00'
+  refreshToken:
+    description: 'Refresh token for renewing the access token'
+    type: string
+    format: date-time
+    example: '2024-12-31T21:00:06.483+00:00'
+  accessTokenValidUntil:
+    description: 'Timestamp for when the access token expires'
+    type: string
+    format: date-time
+    example: '2024-12-01T21:00:06.493+00:00'
+  refreshTokenValidUntil:
+    description: 'Timestamp for when the refresh token expire'
+    type: string
+    format: date-time
+    example: '2024-12-01T21:00:06.493+00:00'
