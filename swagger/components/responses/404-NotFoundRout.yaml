@@ -1,6 +1,6 @@
 # swagger/components/responses/401.yaml
 
-description: An error occurred during the request
+description: Rout not found
 content:
   application/json:
     schema:
@@ -12,9 +12,9 @@ content:
         status:
           type: integer
           description: HTTP status code indicating the error
-          example: 500
+          example: 404
         message:
           type: string
-          description: A detailed error message describing the issue
-          example: "An unexpected error occurred on the server."
+          description: Message describing the issue
+          example: "Rout not found"
 

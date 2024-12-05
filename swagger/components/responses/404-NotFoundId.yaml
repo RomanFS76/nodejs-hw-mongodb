@@ -11,8 +11,10 @@ content:
       properties:
         status:
           type: integer
+          description: HTTP status code indicating the error
           example: 404
         message:
           type: string
+          description: Error's message describing the issue
           example: "Contact id=674cbec22a8bf128259c64b5 not found"
 
