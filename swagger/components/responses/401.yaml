@@ -12,7 +12,7 @@ content:
         status:
           type: integer
           description: HTTP status code indicating the error
-          example: 400
+          example: 401
         message:
           type: string
           description: Error's message describing the issue
