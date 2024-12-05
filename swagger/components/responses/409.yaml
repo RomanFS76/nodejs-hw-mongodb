@@ -1,6 +1,6 @@
 # swagger/components/responses/401.yaml
 
-description: Unauthorized error
+description: Conflict error
 content:
   application/json:
     schema:
@@ -12,9 +12,9 @@ content:
         status:
           type: integer
           description: HTTP status code indicating the error
-          example: 400
+          example: 409
         message:
           type: string
           description: Error's message describing the issue
-          example: UnauthorizedError
+          example: Conflict  error
 

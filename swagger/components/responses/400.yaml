@@ -1,6 +1,6 @@
 # swagger/components/responses/401.yaml
 
-description: Unauthorized error
+description: Bad Request error
 content:
   application/json:
     schema:
@@ -16,5 +16,5 @@ content:
         message:
           type: string
           description: Error's message describing the issue
-          example: UnauthorizedError
+          example: "contact validathion failed: contactType: "individual" is not a valid enum value for path "contactType""
 
