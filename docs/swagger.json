@@ -11,16 +11,18 @@
   },
   "servers": [
     {
-      "url": "http://localhost:3000"
+      "url": "http://localhost:3000",
+      "description": "Local development server"
     },
     {
-      "url": "https://example.com/api/v1"
+      "url": "https://nodejs-hw-mongodb-024p.onrender.com",
+      "description": "Production server"
     }
   ],
   "tags": [
     {
       "name": "Contacts",
-      "description": "Operations about contacts"
+      "description": "Operations related to contacts"
     },
     {
       "name": "Auth",
@@ -28,6 +30,92 @@
     }
   ],
   "paths": {
+    "/auth": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Log in a user and create a session",
+        "operationId": "autorizationUser",
+        "description": "Login with payload",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "description": "Authenticates a user by checking the provided email and password.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "email",
+                  "password"
+                ],
+                "properties": {
+                  "email": {
+                    "description": "The user's email address. Must be a valid email format.",
+                    "type": "string",
+                    "example": "Yacob Belinsky@feesites.com"
+                  },
+                  "password": {
+                    "description": "User's hashed password",
+                    "type": "string",
+                    "example": "$2b$10$nGfYVbHOFi7kDgMm6EsCF.TafrP3l2Vy4IWo.7.JsHzcDn7pg6vjO"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Login user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully loged"
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "accessToken"
+                      ],
+                      "properties": {
+                        "accessToken": {
+                          "type": "string",
+                          "example": "4ziGnKTd7TV/QoTlhep3jCcgJERjgGg1t97j/aYz"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
     "/contacts": {
       "get": {
         "tags": [
@@ -173,6 +261,9 @@
           },
           "401": {
             "$ref": "#/components/responses/401"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
           }
         }
       },
@@ -275,6 +366,9 @@
           },
           "401": {
             "$ref": "#/components/responses/401"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
           }
         }
       }
@@ -335,6 +429,12 @@
           },
           "401": {
             "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404-NotFoundId"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
           }
         }
       },
@@ -383,6 +483,9 @@
           },
           "401": {
             "$ref": "#/components/responses/401"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
           }
         }
       },
@@ -485,11 +588,17 @@
               }
             }
           },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
           "401": {
             "$ref": "#/components/responses/401"
           },
           "404": {
-            "$ref": "#/components/responses/404"
+            "$ref": "#/components/responses/404-NotFoundId"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
           }
         }
       },
@@ -629,7 +738,10 @@
             "$ref": "#/components/responses/401"
           },
           "404": {
-            "$ref": "#/components/responses/404"
+            "$ref": "#/components/responses/404-NotFoundId"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
           }
         }
       }
@@ -640,6 +752,112 @@
       "bearerAuth": {
         "type": "http",
         "scheme": "bearer"
+      }
+    },
+    "responses": {
+      "400": {
+        "description": "Bad Request error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "description": "HTTP status code indicating the error",
+                  "example": 400
+                },
+                "message": {
+                  "type": "string",
+                  "description": "Error's message describing the issue",
+                  "example": "contact validathion failed: contactType: 'home' is not a valid enum value for path 'contactType'"
+                }
+              }
+            }
+          }
+        }
+      },
+      "401": {
+        "description": "Unauthorized error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "description": "HTTP status code indicating the error",
+                  "example": 401
+                },
+                "message": {
+                  "type": "string",
+                  "description": "Error's message describing the issue",
+                  "example": "UnauthorizedError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "500": {
+        "description": "An error occurred during the request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "description": "HTTP status code indicating the error",
+                  "example": 500
+                },
+                "message": {
+                  "type": "string",
+                  "description": "A detailed error message describing the issue",
+                  "example": "An unexpected error occurred on the server."
+                }
+              }
+            }
+          }
+        }
+      },
+      "404-NotFoundId": {
+        "description": "Contact id not found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "description": "HTTP status code indicating the error",
+                  "example": 404
+                },
+                "message": {
+                  "type": "string",
+                  "description": "Error's message describing the issue",
+                  "example": "Contact id=674cbec22a8bf128259c64b5 not found"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "schemas": {
@@ -700,56 +918,6 @@
             "description": "URL to the contact's photo",
             "type": "string",
             "example": "https://res.cloudinary.com/dnxvtdfg3/image/upload/v1733082946/photo/af…"
-          }
-        }
-      }
-    },
-    "responses": {
-      "401": {
-        "description": "Unauthorized error",
-        "content": {
-          "application/json": {
-            "schema": {
-              "type": "object",
-              "required": [
-                "status",
-                "message"
-              ],
-              "properties": {
-                "status": {
-                  "type": "integer",
-                  "example": 401
-                },
-                "message": {
-                  "type": "string",
-                  "example": "UnauthorizedError"
-                }
-              }
-            }
-          }
-        }
-      },
-      "404": {
-        "description": "Contact id not found",
-        "content": {
-          "application/json": {
-            "schema": {
-              "type": "object",
-              "required": [
-                "status",
-                "message"
-              ],
-              "properties": {
-                "status": {
-                  "type": "integer",
-                  "example": 404
-                },
-                "message": {
-                  "type": "string",
-                  "example": "Contact id=674cbec22a8bf128259c64b5 not found"
-                }
-              }
-            }
           }
         }
       }
