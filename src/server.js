@@ -11,6 +11,7 @@ import { errorHandler } from './middlewares/errorHandler.js';
 
 // import { logger } from './middlewares/logger.js';
 import cookieParser from 'cookie-parser';
+import { swaggerDocs } from './middlewares/swaggerDocs.js';
 
 const PORT = Number(env('PORT', '3000'));
 
@@ -27,6 +28,8 @@ export const setupServer = () => {
   app.use('/auth', authRouter);
   app.use('/contacts', routerContacts);
   app.use('/uploads', express.static("uploads"));
+
+  app.use('/api-docs',swaggerDocs())
 
   app.use('*', notFoundHandler);
 
