@@ -1,0 +1,58 @@
+tags:
+  - Auth
+summary: Registration
+operationId: registerUser
+description: 'Registration with payload'
+security: []
+requestBody:
+  description: 'Authenticates a user by checking the provided name, email and password.'
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - name
+          - email
+          - password
+        properties:
+          name:
+            description: "The user's name."
+            type: string
+            example: 'Yacob'
+          email:
+            description: "The user's email address. Must be a valid email format."
+            type: string
+            example: 'Yacob Belinsky@feesites.com'
+          password:
+            description: "User's password"
+            type: string
+            example: 'HOFi7kDgMm6EsCF'
+
+responses:
+  '200':
+    description: Registration user
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully registred Yacob
+            data:
+              type: object
+              $ref: '../../components/schemas/user.yaml'
+  '400':
+    $ref: '../../components/responses/400.yaml'
+  '401':
+    $ref: '../../components/responses/401.yaml'
+  '500':
+    $ref: '../../components/responses/500.yaml'
+

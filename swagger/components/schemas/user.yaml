@@ -10,14 +10,22 @@ properties:
     type: string
     example: 674c7d12e11872cafb6c706a
   name:
-    description: 'Name's user'
+    description: 'User name'
     type: string
     example: 'Roman'
   email:
-    description: 'User's email address'
+    description: 'User email address'
     type: string
     example: 'derrell@feesites.com'
   password:
-    description: 'User's hashed password'
+    description: 'User hashed password'
     type: string
     example: '$2b$10$nGfYVbHOFi7kDgMm6EsCF.TafrP3l2Vy4IWo.7.JsHzcDn7pg6vjO'
+  createdAt:
+    description: 'Data creation '
+    type: string
+    example: '$2b$10$nGfYVbHOFi7kDgMm6EsCF.TafrP3l2Vy4IWo.7.JsHzcDn7pg6vjO'
+  password:
+    updatedAt: 'User hashed password'
+    type: string
+    example: '2024-12-01T13:36:10.304+00:00'

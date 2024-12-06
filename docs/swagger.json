@@ -30,6 +30,89 @@
     }
   ],
   "paths": {
+    "/auth/register": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Registration",
+        "operationId": "registerUser",
+        "description": "Registration with payload",
+        "security": [],
+        "requestBody": {
+          "description": "Authenticates a user by checking the provided name, email and password.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "name",
+                  "email",
+                  "password"
+                ],
+                "properties": {
+                  "name": {
+                    "description": "The user's name.",
+                    "type": "string",
+                    "example": "Yacob"
+                  },
+                  "email": {
+                    "description": "The user's email address. Must be a valid email format.",
+                    "type": "string",
+                    "example": "Yacob Belinsky@feesites.com"
+                  },
+                  "password": {
+                    "description": "User's password",
+                    "type": "string",
+                    "example": "HOFi7kDgMm6EsCF"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Registration user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully registred Yacob"
+                    },
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/user"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
     "/auth/login": {
       "post": {
         "tags": [
@@ -119,31 +202,33 @@
         ],
         "summary": "Log out",
         "operationId": "logOutUser",
-        "description": "Login with payload",
+        "description": "Log out with session",
         "security": [
           {
             "bearerAuth": []
           }
         ],
-        "responses": {
-          "200": {
-            "description": "Log out",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "required": [
-                    "status"
-                  ],
-                  "properties": {
-                    "status": {
-                      "type": "integer",
-                      "example": 204
-                    }
-                  }
+        "parameters": [
+          {
+            "in": "cookie",
+            "name": "sessionId",
+            "schema": {
+              "type": "object",
+              "required": [
+                "_id"
+              ],
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "example": "yPElK+eD7XmdWuCW9OFRMojRGYnZZscG49ySBmzA"
                 }
               }
             }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Logged out, no content"
           },
           "400": {
             "$ref": "#/components/responses/400"
@@ -795,113 +880,38 @@
         "scheme": "bearer"
       }
     },
-    "responses": {
-      "400": {
-        "description": "Bad Request error",
-        "content": {
-          "application/json": {
-            "schema": {
-              "type": "object",
-              "required": [
-                "status",
-                "message"
-              ],
-              "properties": {
-                "status": {
-                  "type": "integer",
-                  "description": "HTTP status code indicating the error",
-                  "example": 400
-                },
-                "message": {
-                  "type": "string",
-                  "description": "Error's message describing the issue",
-                  "example": "Bad request, missing required parameters."
-                }
-              }
-            }
-          }
-        }
-      },
-      "401": {
-        "description": "Unauthorized error",
-        "content": {
-          "application/json": {
-            "schema": {
-              "type": "object",
-              "required": [
-                "status",
-                "message"
-              ],
-              "properties": {
-                "status": {
-                  "type": "integer",
-                  "description": "HTTP status code indicating the error",
-                  "example": 401
-                },
-                "message": {
-                  "type": "string",
-                  "description": "Error's message describing the issue",
-                  "example": "UnauthorizedError"
-                }
-              }
-            }
-          }
-        }
-      },
-      "500": {
-        "description": "An error occurred during the request",
-        "content": {
-          "application/json": {
-            "schema": {
-              "type": "object",
-              "required": [
-                "status",
-                "message"
-              ],
-              "properties": {
-                "status": {
-                  "type": "integer",
-                  "description": "HTTP status code indicating the error",
-                  "example": 500
-                },
-                "message": {
-                  "type": "string",
-                  "description": "A detailed error message describing the issue",
-                  "example": "An unexpected error occurred on the server."
-                }
-              }
-            }
-          }
-        }
-      },
-      "404-NotFoundId": {
-        "description": "Contact id not found",
-        "content": {
-          "application/json": {
-            "schema": {
-              "type": "object",
-              "required": [
-                "status",
-                "message"
-              ],
-              "properties": {
-                "status": {
-                  "type": "integer",
-                  "description": "HTTP status code indicating the error",
-                  "example": 404
-                },
-                "message": {
-                  "type": "string",
-                  "description": "Error's message describing the issue",
-                  "example": "Contact id=674cbec22a8bf128259c64b5 not found"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "schemas": {
+      "user": {
+        "type": "object",
+        "required": [
+          "_id",
+          "name",
+          "email",
+          "password"
+        ],
+        "properties": {
+          "_id": {
+            "description": "User's unique identifier",
+            "type": "string",
+            "example": "674c7d12e11872cafb6c706a"
+          },
+          "name": {
+            "description": "User name",
+            "type": "string",
+            "example": "Roman"
+          },
+          "email": {
+            "description": "User email address",
+            "type": "string",
+            "example": "derrell@feesites.com"
+          },
+          "password": {
+            "description": "User hashed password",
+            "type": "string",
+            "example": "$2b$10$nGfYVbHOFi7kDgMm6EsCF.TafrP3l2Vy4IWo.7.JsHzcDn7pg6vjO"
+          }
+        }
+      },
       "contacts": {
         "type": "object",
         "required": [
@@ -959,6 +969,112 @@
             "description": "URL to the contact's photo",
             "type": "string",
             "example": "https://res.cloudinary.com/dnxvtdfg3/image/upload/v1733082946/photo/af…"
+          }
+        }
+      }
+    },
+    "responses": {
+      "400": {
+        "description": "Bad Request error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "description": "HTTP status code indicating the error",
+                  "example": 400
+                },
+                "message": {
+                  "type": "string",
+                  "description": "Error's message describing the issue",
+                  "example": "Bad request, missing required parameters."
+                }
+              }
+            }
+          }
+        }
+      },
+      "401": {
+        "description": "Unauthorized error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "description": "HTTP status code indicating the error",
+                  "example": 401
+                },
+                "message": {
+                  "type": "string",
+                  "description": "Error's message describing the issue",
+                  "example": "UnauthorizedError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "500": {
+        "description": "Internal Server Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "description": "HTTP status code indicating the error",
+                  "example": 500
+                },
+                "message": {
+                  "type": "string",
+                  "description": "A detailed error message describing the issue",
+                  "example": "An unexpected error occurred on the server."
+                }
+              }
+            }
+          }
+        }
+      },
+      "404-NotFoundId": {
+        "description": "Contact id not found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "description": "HTTP status code indicating the error",
+                  "example": 404
+                },
+                "message": {
+                  "type": "string",
+                  "description": "Error's message describing the issue",
+                  "example": "Contact id=674cbec22a8bf128259c64b5 not found"
+                }
+              }
+            }
           }
         }
       }

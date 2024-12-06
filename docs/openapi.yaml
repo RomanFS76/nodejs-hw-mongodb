@@ -18,6 +18,9 @@ servers:
   - url: https://nodejs-hw-mongodb-024p.onrender.com
     description: Production server
 paths:
+  /auth/register:
+    post:
+      $ref: ../swagger/paths/auth/register.yaml
   /auth/login:
     post:
       $ref: ../swagger/paths/auth/login.yaml
