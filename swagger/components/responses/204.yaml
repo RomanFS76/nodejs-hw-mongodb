@@ -1,0 +1,5 @@
+# swagger/components/responses/401.yaml
+
+description: Bad Request error
+
+

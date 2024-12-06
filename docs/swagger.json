@@ -120,70 +120,33 @@
         "summary": "Log out",
         "operationId": "logOutUser",
         "description": "Login with payload",
-        "security": [],
-        "requestBody": {
-          "description": "Authenticates a user by checking the provided email and password.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "email",
-                  "password"
-                ],
-                "properties": {
-                  "email": {
-                    "description": "The user's email address. Must be a valid email format.",
-                    "type": "string",
-                    "example": "Yacob Belinsky@feesites.com"
-                  },
-                  "password": {
-                    "description": "User's password",
-                    "type": "string",
-                    "example": "HOFi7kDgMm6EsCF"
-                  }
-                }
-              }
-            }
+        "security": [
+          {
+            "bearerAuth": []
           }
-        },
+        ],
         "responses": {
           "200": {
-            "description": "Login user",
+            "description": "Log out",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "required": [
-                    "status",
-                    "message",
-                    "data"
+                    "status"
                   ],
                   "properties": {
                     "status": {
                       "type": "integer",
-                      "example": 200
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Successfully loged"
-                    },
-                    "data": {
-                      "type": "object",
-                      "required": [
-                        "accessToken"
-                      ],
-                      "properties": {
-                        "accessToken": {
-                          "type": "string",
-                          "example": "4ziGnKTd7TV/QoTlhep3jCcgJERjgGg1t97j/aYz"
-                        }
-                      }
+                      "example": 204
                     }
                   }
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
           },
           "401": {
             "$ref": "#/components/responses/401"
@@ -852,7 +815,7 @@
                 "message": {
                   "type": "string",
                   "description": "Error's message describing the issue",
-                  "example": "contact validathion failed: contactType: 'home' is not a valid enum value for path 'contactType'"
+                  "example": "Bad request, missing required parameters."
                 }
               }
             }

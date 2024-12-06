@@ -16,5 +16,5 @@ content:
         message:
           type: string
           description: Error's message describing the issue
-          example: "contact validathion failed: contactType: 'home' is not a valid enum value for path 'contactType'"
+          example: "Bad request, missing required parameters."
 

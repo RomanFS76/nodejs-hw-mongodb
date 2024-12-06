@@ -2,55 +2,32 @@ tags:
   - Auth
 summary: Log out
 operationId: logOutUser
-description: 'Login with payload'
+description: 'Log out with session'
 security:
-  []
-requestBody:
-  description: 'Authenticates a user by checking the provided email and password.'
-  content:
-    application/json:
-      schema:
-        type: object
-        required:
-          - email
-          - password
-        properties:
-          email:
-            description: "The user's email address. Must be a valid email format."
-            type: string
-            example: 'Yacob Belinsky@feesites.com'
-          password:
-            description: "User's password"
-            type: string
-            example: 'HOFi7kDgMm6EsCF'
+  - bearerAuth: []
+parameters:
+- in: cookie
+  name: sessionId
+  schema:
+    type: object
+    required:
+      - _id
+    properties:
+      _id:
+        type: string
+        example: 'yPElK+eD7XmdWuCW9OFRMojRGYnZZscG49ySBmzA'
 responses:
-  '200':
-    description: Login user
-    content:
-      application/json:
-        schema:
-          type: object
-          required:
-            - status
-            - message
-            - data
-          properties:
-            status:
-              type: integer
-              example: 200
-            message:
-              type: string
-              example: Successfully loged
-            data:
-              type: object
-              required:
-                - accessToken
-              properties:
-                accessToken:
-                  type: string
-                  example: '4ziGnKTd7TV/QoTlhep3jCcgJERjgGg1t97j/aYz'
+  '204':
+    description: Logged out, no content
+  '400':
+    $ref: '../../components/responses/400.yaml'
   '401':
     $ref: '../../components/responses/401.yaml'
   '500':
     $ref: '../../components/responses/500.yaml'
+
+# 204 No Content Запрос выполнен успешно, но нет данных для возвращения (например, после логаута).
+# 404 Route not found
+# 400 Not Found "message": "Unexpected token '\"', \"\"Хцук\"\" is not valid JSON"
+# 500 Err server
 
