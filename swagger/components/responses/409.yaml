@@ -16,5 +16,5 @@ content:
         message:
           type: string
           description: Error's message describing the issue
-          example: Conflict error
+          example: Email already in use
 

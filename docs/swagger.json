@@ -107,6 +107,9 @@
           "401": {
             "$ref": "#/components/responses/401"
           },
+          "409": {
+            "$ref": "#/components/responses/409"
+          },
           "500": {
             "$ref": "#/components/responses/500"
           }
@@ -185,6 +188,9 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
           },
           "401": {
             "$ref": "#/components/responses/401"
@@ -388,6 +394,9 @@
           "401": {
             "$ref": "#/components/responses/401"
           },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
           "500": {
             "$ref": "#/components/responses/500"
           }
@@ -411,12 +420,13 @@
               "schema": {
                 "type": "object",
                 "required": [
+                  "userId",
                   "name",
                   "phoneNumber"
                 ],
                 "properties": {
                   "userId": {
-                    "description": "Contact's unique identifier",
+                    "description": "User's unique identifier",
                     "type": "string",
                     "example": "674cbeb42a8bf128259c64b1"
                   },
@@ -490,6 +500,9 @@
               }
             }
           },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
           "401": {
             "$ref": "#/components/responses/401"
           },
@@ -557,7 +570,7 @@
             "$ref": "#/components/responses/401"
           },
           "404": {
-            "$ref": "#/components/responses/404-NotFoundId"
+            "$ref": "#/components/responses/404"
           },
           "500": {
             "$ref": "#/components/responses/500"
@@ -589,26 +602,13 @@
         ],
         "responses": {
           "204": {
-            "description": "Delete contact by id",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "required": [
-                    "status"
-                  ],
-                  "properties": {
-                    "status": {
-                      "type": "integer",
-                      "example": 204
-                    }
-                  }
-                }
-              }
-            }
+            "description": "Delete contact by id"
           },
           "401": {
             "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
           },
           "500": {
             "$ref": "#/components/responses/500"
@@ -721,7 +721,7 @@
             "$ref": "#/components/responses/401"
           },
           "404": {
-            "$ref": "#/components/responses/404-NotFoundId"
+            "$ref": "#/components/responses/404"
           },
           "500": {
             "$ref": "#/components/responses/500"
@@ -860,11 +860,14 @@
               }
             }
           },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
           "401": {
             "$ref": "#/components/responses/401"
           },
           "404": {
-            "$ref": "#/components/responses/404-NotFoundId"
+            "$ref": "#/components/responses/404"
           },
           "500": {
             "$ref": "#/components/responses/500"
@@ -909,6 +912,16 @@
             "description": "User hashed password",
             "type": "string",
             "example": "$2b$10$nGfYVbHOFi7kDgMm6EsCF.TafrP3l2Vy4IWo.7.JsHzcDn7pg6vjO"
+          },
+          "createdAt": {
+            "description": "User data creation",
+            "type": "string",
+            "example": "$2b$10$nGfYVbHOFi7kDgMm6EsCF.TafrP3l2Vy4IWo.7.JsHzcDn7pg6vjO"
+          },
+          "updatedAt": {
+            "description": "User data update",
+            "type": "string",
+            "example": "2024-12-01T13:36:10.304+00:00"
           }
         }
       },
@@ -919,10 +932,8 @@
           "userId",
           "name",
           "phoneNumber",
-          "email",
-          "isFavourite",
           "contactType",
-          "photo"
+          "isFavourite"
         ],
         "properties": {
           "_id": {
@@ -969,6 +980,16 @@
             "description": "URL to the contact's photo",
             "type": "string",
             "example": "https://res.cloudinary.com/dnxvtdfg3/image/upload/v1733082946/photo/af…"
+          },
+          "createdAt": {
+            "description": "Contact data creation",
+            "type": "string",
+            "example": "2024-11-01T13:36:10.304+00:00"
+          },
+          "updatedAt": {
+            "description": "Contact data update",
+            "type": "string",
+            "example": "2024-12-01T13:36:10.304+00:00"
           }
         }
       }
@@ -993,7 +1014,7 @@
                 "message": {
                   "type": "string",
                   "description": "Error's message describing the issue",
-                  "example": "Bad request, missing required parameters."
+                  "example": "Password is required."
                 }
               }
             }
@@ -1026,6 +1047,58 @@
           }
         }
       },
+      "404": {
+        "description": "Not found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "description": "HTTP status code indicating the error",
+                  "example": 404
+                },
+                "message": {
+                  "type": "string",
+                  "description": "Message describing the issue",
+                  "example": "Rout not found"
+                }
+              }
+            }
+          }
+        }
+      },
+      "409": {
+        "description": "Conflict error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "description": "HTTP status code indicating the error",
+                  "example": 409
+                },
+                "message": {
+                  "type": "string",
+                  "description": "Error's message describing the issue",
+                  "example": "Email already in use"
+                }
+              }
+            }
+          }
+        }
+      },
       "500": {
         "description": "Internal Server Error",
         "content": {
@@ -1046,32 +1119,6 @@
                   "type": "string",
                   "description": "A detailed error message describing the issue",
                   "example": "An unexpected error occurred on the server."
-                }
-              }
-            }
-          }
-        }
-      },
-      "404-NotFoundId": {
-        "description": "Contact id not found",
-        "content": {
-          "application/json": {
-            "schema": {
-              "type": "object",
-              "required": [
-                "status",
-                "message"
-              ],
-              "properties": {
-                "status": {
-                  "type": "integer",
-                  "description": "HTTP status code indicating the error",
-                  "example": 404
-                },
-                "message": {
-                  "type": "string",
-                  "description": "Error's message describing the issue",
-                  "example": "Contact id=674cbec22a8bf128259c64b5 not found"
                 }
               }
             }

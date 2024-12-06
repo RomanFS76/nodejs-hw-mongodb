@@ -35,3 +35,11 @@ properties:
     type: string
     format: date-time
     example: '2024-12-01T21:00:06.493+00:00'
+  createdAt:
+    description: 'Session data creation'
+    type: string
+    example: '$2b$10$nGfYVbHOFi7kDgMm6EsCF.TafrP3l2Vy4IWo.7.JsHzcDn7pg6vjO'
+  updatedAt:
+    description: 'Session data update'
+    type: string
+    example: '2024-12-01T13:36:10.304+00:00'

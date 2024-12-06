@@ -4,10 +4,8 @@ required:
   - userId
   - name
   - phoneNumber
-  - email
-  - isFavourite
   - contactType
-  - photo
+  - isFavourite
 properties:
   _id:
     description: "Contact's unique identifier"
@@ -42,3 +40,11 @@ properties:
     description: "URL to the contact's photo"
     type: string
     example: "https://res.cloudinary.com/dnxvtdfg3/image/upload/v1733082946/photo/af…"
+  createdAt:
+    description: 'Contact data creation'
+    type: string
+    example: '2024-11-01T13:36:10.304+00:00'
+  updatedAt:
+    description: 'Contact data update'
+    type: string
+    example: '2024-12-01T13:36:10.304+00:00'

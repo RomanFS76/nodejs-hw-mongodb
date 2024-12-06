@@ -13,11 +13,12 @@ requestBody:
       schema:
         type: object
         required:
+          - userId
           - name
           - phoneNumber
         properties:
           userId:
-            description: "Contact's unique identifier"
+            description: "User's unique identifier"
             type: string
             example: '674cbeb42a8bf128259c64b1'
           name:
@@ -66,6 +67,8 @@ responses:
             data:
               type: object
               $ref: '../../components/schemas/contacts.yaml'
+  '400':
+    $ref: '../../components/responses/400.yaml'
   '401':
     $ref: '../../components/responses/401.yaml'
   '500':

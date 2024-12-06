@@ -50,6 +50,8 @@ responses:
                 accessToken:
                   type: string
                   example: '4ziGnKTd7TV/QoTlhep3jCcgJERjgGg1t97j/aYz'
+  '400':
+    $ref: '../../components/responses/400.yaml'
   '401':
     $ref: '../../components/responses/401.yaml'
   '500':

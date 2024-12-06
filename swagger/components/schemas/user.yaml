@@ -22,10 +22,10 @@ properties:
     type: string
     example: '$2b$10$nGfYVbHOFi7kDgMm6EsCF.TafrP3l2Vy4IWo.7.JsHzcDn7pg6vjO'
   createdAt:
-    description: 'Data creation '
+    description: 'User data creation'
     type: string
     example: '$2b$10$nGfYVbHOFi7kDgMm6EsCF.TafrP3l2Vy4IWo.7.JsHzcDn7pg6vjO'
-  password:
-    updatedAt: 'User hashed password'
+  updatedAt:
+    description: 'User data update'
     type: string
     example: '2024-12-01T13:36:10.304+00:00'
