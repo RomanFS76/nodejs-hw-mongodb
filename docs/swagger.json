@@ -30,19 +30,15 @@
     }
   ],
   "paths": {
-    "/auth": {
+    "/auth/login": {
       "post": {
         "tags": [
           "Auth"
         ],
-        "summary": "Log in a user and create a session",
-        "operationId": "autorizationUser",
+        "summary": "Log in",
+        "operationId": "logInUser",
         "description": "Login with payload",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
+        "security": [],
         "requestBody": {
           "description": "Authenticates a user by checking the provided email and password.",
           "content": {
@@ -60,9 +56,91 @@
                     "example": "Yacob Belinsky@feesites.com"
                   },
                   "password": {
-                    "description": "User's hashed password",
+                    "description": "User's password",
                     "type": "string",
-                    "example": "$2b$10$nGfYVbHOFi7kDgMm6EsCF.TafrP3l2Vy4IWo.7.JsHzcDn7pg6vjO"
+                    "example": "HOFi7kDgMm6EsCF"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Login user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully loged"
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "accessToken"
+                      ],
+                      "properties": {
+                        "accessToken": {
+                          "type": "string",
+                          "example": "4ziGnKTd7TV/QoTlhep3jCcgJERjgGg1t97j/aYz"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Log out",
+        "operationId": "logOutUser",
+        "description": "Login with payload",
+        "security": [],
+        "requestBody": {
+          "description": "Authenticates a user by checking the provided email and password.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "email",
+                  "password"
+                ],
+                "properties": {
+                  "email": {
+                    "description": "The user's email address. Must be a valid email format.",
+                    "type": "string",
+                    "example": "Yacob Belinsky@feesites.com"
+                  },
+                  "password": {
+                    "description": "User's password",
+                    "type": "string",
+                    "example": "HOFi7kDgMm6EsCF"
                   }
                 }
               }
@@ -134,9 +212,9 @@
             "in": "query",
             "name": "page",
             "schema": {
-              "type": "integer"
-            },
-            "example": 1
+              "type": "integer",
+              "example": 1
+            }
           },
           {
             "in": "query",

@@ -1,10 +1,10 @@
 tags:
   - Auth
-summary: Log in a user and create a session
-operationId: autorizationUser
+summary: Log in
+operationId: logInUser
 description: 'Login with payload'
 security:
-  - bearerAuth: []
+  []
 requestBody:
   description: 'Authenticates a user by checking the provided email and password.'
   content:
@@ -20,9 +20,9 @@ requestBody:
             type: string
             example: 'Yacob Belinsky@feesites.com'
           password:
-            description: "User's hashed password"
+            description: "User's password"
             type: string
-            example: '$2b$10$nGfYVbHOFi7kDgMm6EsCF.TafrP3l2Vy4IWo.7.JsHzcDn7pg6vjO'
+            example: 'HOFi7kDgMm6EsCF'
 
 responses:
   '200':
