@@ -27,9 +27,8 @@ requestBody:
             description: "User's password"
             type: string
             example: 'HOFi7kDgMm6EsCF'
-
 responses:
-  '200':
+  '201':
     description: Registration user
     content:
       application/json:
@@ -42,7 +41,7 @@ responses:
           properties:
             status:
               type: integer
-              example: 200
+              example: 201
             message:
               type: string
               example: Successfully registred Yacob

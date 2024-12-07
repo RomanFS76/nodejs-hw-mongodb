@@ -81,8 +81,6 @@ export const requestResetEmailController = async (req, res) => {
 };
 
 export const resetPasswordController  = async (req,res) => {
-  // const {token} = req.query;
-  // const {password} = req.body;
   await resetPassword (req.body);
 
   res.json({

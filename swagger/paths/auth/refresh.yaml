@@ -1,0 +1,57 @@
+tags:
+  - Auth
+summary: Refreshing session
+operationId: refreshSession
+description: 'Refreshing session'
+security: []
+requestBody:
+  description: 'Refreshing user by checking the provided email and password.'
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - email
+          - password
+        properties:
+          email:
+            description: "The user's email address. Must be a valid email format."
+            type: string
+            example: 'Yacob Belinsky@feesites.com'
+          password:
+            description: "User's password"
+            type: string
+            example: 'HOFi7kDgMm6EsCF'
+
+responses:
+  '200':
+    description: Refreshing session
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully refreshed a session!
+            data:
+              type: object
+              required:
+                - accessToken
+              properties:
+                accessToken:
+                  type: string
+                  example: '4ziGnKTd7TV/QoTlhep3jCcgJERjgGg1t97j/aYz'
+  '400':
+    $ref: '../../components/responses/400.yaml'
+  '401':
+    $ref: '../../components/responses/401.yaml'
+  '500':
+    $ref: '../../components/responses/500.yaml'

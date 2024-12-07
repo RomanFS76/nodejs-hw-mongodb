@@ -17,14 +17,10 @@ properties:
     description: 'User email address'
     type: string
     example: 'derrell@feesites.com'
-  password:
-    description: 'User hashed password'
-    type: string
-    example: '$2b$10$nGfYVbHOFi7kDgMm6EsCF.TafrP3l2Vy4IWo.7.JsHzcDn7pg6vjO'
   createdAt:
     description: 'User data creation'
     type: string
-    example: '$2b$10$nGfYVbHOFi7kDgMm6EsCF.TafrP3l2Vy4IWo.7.JsHzcDn7pg6vjO'
+    example: '2024-11-01T13:36:10.304+00:00'
   updatedAt:
     description: 'User data update'
     type: string

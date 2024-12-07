@@ -1,0 +1,57 @@
+tags:
+  - Auth
+summary: Reset password
+operationId: resetPassword
+description: 'Reset password with email'
+security: []
+requestBody:
+  description: 'Reset password by sending an email to the user.'
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - token
+          - password
+        properties:
+          token:
+            description: "The user's email address. Must be a valid email format."
+            type: string
+            example: '$2b$10$nGfYVbHOFi7kDgMm6EsCF.TafrP3l2Vy4IWo.7.JsHzcDn7pg6vjOm'
+          properties:
+          password:
+            description: "New user's password."
+            type: string
+            example: 'NewPassword123'
+responses:
+  '200':
+    description: Reset password
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Reset password email was successfully sent!
+            data:
+              type: object
+              required:
+              #   - accessToken
+              # properties:
+              #   accessToken:
+              #     type: string
+              #     example: '4ziGnKTd7TV/QoTlhep3jCcgJERjgGg1t97j/aYz'
+  '400':
+    $ref: '../../components/responses/400.yaml'
+  '401':
+    $ref: '../../components/responses/401.yaml'
+  '500':
+    $ref: '../../components/responses/500.yaml'

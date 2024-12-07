@@ -3,8 +3,7 @@ tags:
 summary: Log in
 operationId: logInUser
 description: 'Login with payload'
-security:
-  []
+security: []
 requestBody:
   description: 'Authenticates a user by checking the provided email and password.'
   content:
@@ -14,6 +13,7 @@ requestBody:
         required:
           - email
           - password
+          - data
         properties:
           email:
             description: "The user's email address. Must be a valid email format."
@@ -23,7 +23,6 @@ requestBody:
             description: "User's password"
             type: string
             example: 'HOFi7kDgMm6EsCF'
-
 responses:
   '200':
     description: Login user

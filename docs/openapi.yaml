@@ -27,6 +27,9 @@ paths:
   /auth/logout:
     post:
       $ref: ../swagger/paths/auth/logout.yaml
+  /auth/refresh:
+    post:
+      $ref: ../swagger/paths/auth/refresh.yaml
   /contacts:
     get:
       $ref: ../swagger/paths/contacts/get.yaml

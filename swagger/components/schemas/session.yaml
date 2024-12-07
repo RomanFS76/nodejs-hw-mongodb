@@ -38,7 +38,7 @@ properties:
   createdAt:
     description: 'Session data creation'
     type: string
-    example: '$2b$10$nGfYVbHOFi7kDgMm6EsCF.TafrP3l2Vy4IWo.7.JsHzcDn7pg6vjO'
+    example: '2024-11-01T13:36:10.304+00:00'
   updatedAt:
     description: 'Session data update'
     type: string
