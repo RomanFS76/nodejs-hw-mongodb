@@ -30,6 +30,12 @@ paths:
   /auth/refresh:
     post:
       $ref: ../swagger/paths/auth/refresh.yaml
+  /auth/resetPwd:
+    post:
+      $ref: ../swagger/paths/auth/resetPwd.yaml
+  /auth/sendEmail:
+    post:
+      $ref: ../swagger/paths/auth/sendEmail.yaml
   /contacts:
     get:
       $ref: ../swagger/paths/contacts/get.yaml

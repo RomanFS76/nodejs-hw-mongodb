@@ -9,13 +9,8 @@ parameters:
 - in: cookie
   name: sessionId
   schema:
-    type: object
-    required:
-      - _id
-    properties:
-      _id:
-        type: string
-        example: 'yPElK+eD7XmdWuCW9OFRMojRGYnZZscG49ySBmzA'
+    type: string
+    example: 'yPElK+eD7XmdWuCW9OFRMojRGYnZZscG49ySBmzA'
 responses:
   '204':
     description: Logged out, no content
@@ -26,8 +21,4 @@ responses:
   '500':
     $ref: '../../components/responses/500.yaml'
 
-# 204 No Content Запрос выполнен успешно, но нет данных для возвращения (например, после логаута).
-# 404 Route not found
-# 400 Not Found "message": "Unexpected token '\"', \"\"Хцук\"\" is not valid JSON"
-# 500 Err server
 

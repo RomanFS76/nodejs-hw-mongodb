@@ -1,11 +1,11 @@
 tags:
   - Auth
-summary: Reset password by sending email
+summary: Send email
 operationId: sendEmail
-description: 'Reset the user password by sending a reset email.'
+description: 'Sending an email.'
 security: []
 requestBody:
-  description: 'Reset password by sending an email to the user.'
+  description: 'Sending an email to the user, typically to reset the password or confirm an operation.'
   content:
     application/json:
       schema:
@@ -19,14 +19,13 @@ requestBody:
                     representing the user session or email verification."
             type: string
             example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
-          properties:
           password:
             description: "New user's password."
             type: string
             example: 'NewPassword123'
 responses:
   '200':
-    description: Sending email
+    description: Send email
     content:
       application/json:
         schema:
@@ -42,9 +41,9 @@ responses:
             message:
               type: string
               example: Reset password email was successfully sent!
-            data:
-              type: object
-              required:
+            # data:
+            #   type: object
+            #   required:
               #   - accessToken
               # properties:
               #   accessToken:

@@ -4,25 +4,17 @@ summary: Refreshing session
 operationId: refreshSession
 description: 'Refreshing session'
 security: []
-requestBody:
-  description: 'Refreshing user by checking the provided email and password.'
-  content:
-    application/json:
-      schema:
-        type: object
-        required:
-          - email
-          - password
-        properties:
-          email:
-            description: "The user's email address. Must be a valid email format."
-            type: string
-            example: 'Yacob Belinsky@feesites.com'
-          password:
-            description: "User's password"
-            type: string
-            example: 'HOFi7kDgMm6EsCF'
-
+parameters:
+  - in: cookie
+    name: sessionId
+    schema:
+      type: string
+      example: '67536f412ecc77b5fc92f4cb'
+  - in: cookie
+    name: refreshToken
+    schema:
+      type: string
+      example: 'M00su751shVa8iIAggrVq/vT+FCc0GSwz0zwJ9Wt'
 responses:
   '200':
     description: Refreshing session

@@ -18,11 +18,11 @@ requestBody:
             description: "The user's email address. Must be a valid email format."
             type: string
             example: '$2b$10$nGfYVbHOFi7kDgMm6EsCF.TafrP3l2Vy4IWo.7.JsHzcDn7pg6vjOm'
-          properties:
+
           password:
             description: "New user's password."
             type: string
-            example: 'NewPassword123'
+            example: 'NewPassword'
 responses:
   '200':
     description: Reset password
@@ -44,11 +44,11 @@ responses:
             data:
               type: object
               required:
-              #   - accessToken
-              # properties:
-              #   accessToken:
-              #     type: string
-              #     example: '4ziGnKTd7TV/QoTlhep3jCcgJERjgGg1t97j/aYz'
+                - accessToken
+              properties:
+                accessToken:
+                  type: string
+                  example: '4ziGnKTd7TV/QoTlhep3jCcgJERjgGg1t97j/aYz'
   '400':
     $ref: '../../components/responses/400.yaml'
   '401':
