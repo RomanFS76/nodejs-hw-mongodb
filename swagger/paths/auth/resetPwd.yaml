@@ -5,6 +5,7 @@ operationId: resetPassword
 description: 'Reset password with email'
 security: []
 requestBody:
+  required: true
   description: 'Reset password by sending an email to the user.'
   content:
     application/json:

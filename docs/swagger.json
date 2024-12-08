@@ -40,6 +40,7 @@
         "description": "Registration with payload",
         "security": [],
         "requestBody": {
+          "required": true,
           "description": "Authenticates a user by checking the provided name, email and password.",
           "content": {
             "application/json": {
@@ -123,6 +124,7 @@
         "description": "Login with payload",
         "security": [],
         "requestBody": {
+          "required": true,
           "description": "Authenticates a user by checking the provided email and password.",
           "content": {
             "application/json": {
@@ -320,6 +322,7 @@
         "description": "Reset password with email",
         "security": [],
         "requestBody": {
+          "required": true,
           "description": "Reset password by sending an email to the user.",
           "content": {
             "application/json": {
@@ -405,6 +408,7 @@
         "description": "Sending an email.",
         "security": [],
         "requestBody": {
+          "required": true,
           "description": "Sending an email to the user, typically to reset the password or confirm an operation.",
           "content": {
             "application/json": {

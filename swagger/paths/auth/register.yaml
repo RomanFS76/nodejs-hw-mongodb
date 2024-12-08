@@ -5,6 +5,7 @@ operationId: registerUser
 description: 'Registration with payload'
 security: []
 requestBody:
+  required: true
   description: 'Authenticates a user by checking the provided name, email and password.'
   content:
     application/json:

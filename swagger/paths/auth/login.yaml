@@ -5,6 +5,7 @@ operationId: logInUser
 description: 'Login with payload'
 security: []
 requestBody:
+  required: true
   description: 'Authenticates a user by checking the provided email and password.'
   content:
     application/json:

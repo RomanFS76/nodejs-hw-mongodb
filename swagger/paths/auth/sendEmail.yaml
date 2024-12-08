@@ -5,6 +5,7 @@ operationId: sendEmail
 description: 'Sending an email.'
 security: []
 requestBody:
+  required: true
   description: 'Sending an email to the user, typically to reset the password or confirm an operation.'
   content:
     application/json:
