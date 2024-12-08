@@ -46,6 +46,7 @@ export const loginController = async (req, res) => {
 
 export const refreshSessionController = async (req, res) => {
   const session = await refreshUserSession(req.cookies);
+  console.log(req.cookies)
 
   setupSession(res, session);
 

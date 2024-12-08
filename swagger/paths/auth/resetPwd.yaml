@@ -18,7 +18,6 @@ requestBody:
             description: "The user's email address. Must be a valid email format."
             type: string
             example: '$2b$10$nGfYVbHOFi7kDgMm6EsCF.TafrP3l2Vy4IWo.7.JsHzcDn7pg6vjOm'
-
           password:
             description: "New user's password."
             type: string

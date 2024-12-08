@@ -104,9 +104,6 @@
           "400": {
             "$ref": "#/components/responses/400"
           },
-          "401": {
-            "$ref": "#/components/responses/401"
-          },
           "409": {
             "$ref": "#/components/responses/409"
           },
@@ -133,8 +130,7 @@
                 "type": "object",
                 "required": [
                   "email",
-                  "password",
-                  "data"
+                  "password"
                 ],
                 "properties": {
                   "email": {
@@ -220,16 +216,8 @@
             "in": "cookie",
             "name": "sessionId",
             "schema": {
-              "type": "object",
-              "required": [
-                "_id"
-              ],
-              "properties": {
-                "_id": {
-                  "type": "string",
-                  "example": "yPElK+eD7XmdWuCW9OFRMojRGYnZZscG49ySBmzA"
-                }
-              }
+              "type": "string",
+              "example": "yPElK+eD7XmdWuCW9OFRMojRGYnZZscG49ySBmzA"
             }
           }
         ],
@@ -257,33 +245,29 @@
         "summary": "Refreshing session",
         "operationId": "refreshSession",
         "description": "Refreshing session",
-        "security": [],
-        "requestBody": {
-          "description": "Refreshing user by checking the provided email and password.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "email",
-                  "password"
-                ],
-                "properties": {
-                  "email": {
-                    "description": "The user's email address. Must be a valid email format.",
-                    "type": "string",
-                    "example": "Yacob Belinsky@feesites.com"
-                  },
-                  "password": {
-                    "description": "User's password",
-                    "type": "string",
-                    "example": "HOFi7kDgMm6EsCF"
-                  }
-                }
-              }
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "cookie",
+            "name": "sessionId",
+            "schema": {
+              "type": "string",
+              "example": "67536f412ecc77b5fc92f4cb"
+            }
+          },
+          {
+            "in": "cookie",
+            "name": "refreshToken",
+            "schema": {
+              "type": "string",
+              "example": "M00su751shVa8iIAggrVq/vT+FCc0GSwz0zwJ9Wt"
             }
           }
-        },
+        ],
         "responses": {
           "200": {
             "description": "Refreshing session",
@@ -307,15 +291,7 @@
                     },
                     "data": {
                       "type": "object",
-                      "required": [
-                        "accessToken"
-                      ],
-                      "properties": {
-                        "accessToken": {
-                          "type": "string",
-                          "example": "4ziGnKTd7TV/QoTlhep3jCcgJERjgGg1t97j/aYz"
-                        }
-                      }
+                      "example": {}
                     }
                   }
                 }
@@ -362,7 +338,7 @@
                   "password": {
                     "description": "New user's password.",
                     "type": "string",
-                    "example": "NewPassword123"
+                    "example": "NewPassword"
                   }
                 }
               }
@@ -424,30 +400,24 @@
         "tags": [
           "Auth"
         ],
-        "summary": "Reset password by sending email",
+        "summary": "Send email",
         "operationId": "sendEmail",
-        "description": "Reset password by sending a reset email.",
+        "description": "Sending an email.",
         "security": [],
         "requestBody": {
-          "description": "Sending an email to the user.",
+          "description": "Sending an email to the user, typically to reset the password or confirm an operation.",
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
                 "required": [
-                  "token",
-                  "password"
+                  "email"
                 ],
                 "properties": {
-                  "token": {
-                    "description": "The token to verify the user for password reset. This should be a valid JWT token representing the user session or email verification.",
+                  "email": {
+                    "description": "User's email",
                     "type": "string",
-                    "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
-                  },
-                  "password": {
-                    "description": "New user's password.",
-                    "type": "string",
-                    "example": "NewPassword123"
+                    "example": "LexyLux@gmail.com"
                   }
                 }
               }
@@ -456,7 +426,7 @@
         },
         "responses": {
           "200": {
-            "description": "Sending email",
+            "description": "Send email",
             "content": {
               "application/json": {
                 "schema": {
@@ -474,6 +444,10 @@
                     "message": {
                       "type": "string",
                       "example": "Reset password email was successfully sent!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "example": {}
                     }
                   }
                 }
@@ -846,7 +820,7 @@
         ],
         "responses": {
           "204": {
-            "description": "Delete contact by id"
+            "description": "Delete contact by id,no content"
           },
           "401": {
             "$ref": "#/components/responses/401"
@@ -1076,7 +1050,7 @@
             }
           },
           "201": {
-            "description": "Creates a contacts",
+            "description": "Create a contact",
             "content": {
               "application/json": {
                 "schema": {
@@ -1253,7 +1227,7 @@
                 "message": {
                   "type": "string",
                   "description": "Error's message describing the issue",
-                  "example": "Password is required."
+                  "example": "Bad request on server."
                 }
               }
             }

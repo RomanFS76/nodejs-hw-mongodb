@@ -13,7 +13,6 @@ requestBody:
         required:
           - email
           - password
-          - data
         properties:
           email:
             description: "The user's email address. Must be a valid email format."

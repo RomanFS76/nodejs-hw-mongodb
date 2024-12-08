@@ -16,5 +16,5 @@ content:
         message:
           type: string
           description: Error's message describing the issue
-          example: "Password is required."
+          example: "Bad request on server."
 

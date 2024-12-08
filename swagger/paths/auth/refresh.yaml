@@ -3,7 +3,8 @@ tags:
 summary: Refreshing session
 operationId: refreshSession
 description: 'Refreshing session'
-security: []
+security:
+  - bearerAuth: []
 parameters:
   - in: cookie
     name: sessionId
@@ -35,12 +36,7 @@ responses:
               example: Successfully refreshed a session!
             data:
               type: object
-              required:
-                - accessToken
-              properties:
-                accessToken:
-                  type: string
-                  example: '4ziGnKTd7TV/QoTlhep3jCcgJERjgGg1t97j/aYz'
+              example: {}
   '400':
     $ref: '../../components/responses/400.yaml'
   '401':

@@ -68,7 +68,7 @@ responses:
               type: object
               $ref: '../../../components/schemas/contacts.yaml'
   '201':
-    description: 'Creates a contacts'
+    description: 'Create a contact'
     content:
       application/json:
         schema:

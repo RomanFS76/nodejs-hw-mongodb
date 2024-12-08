@@ -11,18 +11,12 @@ requestBody:
       schema:
         type: object
         required:
-          - token
-          - password
+          - email
         properties:
-          token:
-            description: "The token to verify the user for password reset. This should be a valid JWT token
-                    representing the user session or email verification."
+          email:
+            description: "User's email"
             type: string
-            example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
-          password:
-            description: "New user's password."
-            type: string
-            example: 'NewPassword123'
+            example: 'LexyLux@gmail.com'
 responses:
   '200':
     description: Send email
@@ -41,14 +35,9 @@ responses:
             message:
               type: string
               example: Reset password email was successfully sent!
-            # data:
-            #   type: object
-            #   required:
-              #   - accessToken
-              # properties:
-              #   accessToken:
-              #     type: string
-              #     example: '4ziGnKTd7TV/QoTlhep3jCcgJERjgGg1t97j/aYz'
+            data:
+              type: object
+              example: {}
   '400':
     $ref: '../../components/responses/400.yaml'
   '401':
