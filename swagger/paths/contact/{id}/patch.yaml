@@ -1,7 +1,8 @@
+
 tags:
   - Contacts
-summary: Put contact by id
-operationId: patchContacts
+summary: Patch contact by id
+operationId: patchContact
 description: 'Patch contact by id'
 security:
   - bearerAuth: []
@@ -17,9 +18,6 @@ requestBody:
     multipart/form-data:
       schema:
         type: object
-        required:
-          - name
-          - phoneNumber
         properties:
           name:
             description: "Contact's name"
@@ -34,21 +32,22 @@ requestBody:
             type: string
             example: 'yeicob.trinidad@feesites.com'
           isFavourite:
-            description: 'Indicates whether the contact is a favourite (true or false)'
+            description: "Indicates whether the contact is a favourite (true or false)"
             type: boolean
             example: false
           contactType:
             description: 'Type of the contact.Should be only: work, home or personal'
-            enum: ['work', 'home', 'personal']
+            enum: ['work', 'home', "personal"]
             type: string
             example: 'work'
           photo:
             description: "Contact's photo"
             type: string
-            example: binary
+            format: binary
+            example: null
 responses:
   '200':
-    description: 'Put contact by id'
+    description: 'Patch contact by id'
     content:
       application/json:
         schema:
@@ -63,30 +62,10 @@ responses:
               example: 200
             message:
               type: string
-              example: 'Successfully upserted'
+              example: "Successfully patched a contact!"
             data:
               type: object
-              $ref: '../../../components/schemas/contacts.yaml'
-  '201':
-    description: 'Create a contact'
-    content:
-      application/json:
-        schema:
-          type: object
-          required:
-            - status
-            - message
-            - data
-          properties:
-            status:
-              type: integer
-              example: 201
-            message:
-              type: string
-              example: 'Successfully upserted'
-            data:
-              type: object
-              $ref: "../../../components/schemas/contacts.yaml"
+              $ref: '../../../components/schemas/contact.yaml'
   '400':
     $ref: '../../../components/responses/400.yaml'
   '401':
